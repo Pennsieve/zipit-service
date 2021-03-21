@@ -1,0 +1,13 @@
+{
+  "header": {
+    "size": 1000000000,
+    "count": 1
+  },
+  "data" : [
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "https://zipit-test-1.s3.amazonaws.com/twelvegig.txt"
+    }
+  ]
+}

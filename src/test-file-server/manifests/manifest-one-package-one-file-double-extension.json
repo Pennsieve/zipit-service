@@ -1,0 +1,15 @@
+{
+  "header": {
+    "size": 1000000000,
+    "count": 1
+  },
+  "data" : [
+    {
+      "path" : [],
+      "fileName": "file1.ome.tiff",
+      "packageName": "file1.ome.tiff",
+      "url": "http://localhost:4001/file/text.txt",
+      "fileExtension": "ome.tiff"
+    }
+  ]
+}

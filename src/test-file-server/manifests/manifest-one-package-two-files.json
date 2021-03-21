@@ -1,0 +1,18 @@
+{
+  "header": {
+    "size": 1000000000,
+    "count": 2
+  },
+  "data" : [
+    {
+      "path" : ["package"],
+      "fileName": "file1.txt",
+      "url": "http://localhost:4001/file/text.txt"
+    },
+    {
+      "path" : ["package"],
+      "fileName": "file2.txt",
+      "url": "http://localhost:4001/file/text.txt"
+    }
+  ]
+}

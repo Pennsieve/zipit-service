@@ -1,0 +1,49 @@
+{
+  "header": {
+    "size": 1000000000,
+    "count": 100
+  },
+  "data" : [
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "http://www.google.com"
+    },
+    {
+      "path": ["dir1", "dir2"],
+      "fileName": "file3.txt",
+      "url": "http://www.google.com"
+    },
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "http://www.google.com"
+    },
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "http://www.google.com"
+    },
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "http://www.google.com"
+    },
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "http://www.google.com"
+    },
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "http://www.google.com"
+    },
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "http://www.google.com"
+    },
+    {}
+  ]
+}

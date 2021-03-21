@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Zipit Service
+tags:
+  - name: Zipit
+
+servers:
+  - url: https://api.pennsieve.io/zipit
+  - url: https://api.pennsieve.net/zipit
+
+paths:
+  "/":
+    post:
+      summary: Returns a stream of file(s) from the pennsieve platform
+      security: []
+      parameters:
+        - name: api_key
+          in: query
+          description: api key for pennsieve-api
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  $ref: '#/components/schemas/PackagesBodySchema'
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  type: string
+                  description: While technically a string, should contain a PackagesBodySchema serialized as JSON.
+      responses:
+        "200":
+          description: The resulting file or zip stream.  In all cases, the server should return a file stream.  Errors, if they occur, will be reported in the returned file
+
+  "/discover":
+    post:
+      summary: Returns a stream of file(s) from pennsieve discover
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  $ref: '#/components/schemas/DiscoverBodySchema'
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  type: string
+                  description: While technically a string, should contain a DiscoverBodySchema serialized as JSON.
+      responses:
+        "200":
+          description: The resulting file or zip stream.  In all cases, the server should return a file stream.  Errors, if they occur, will be reported in the returned file
+
+components:
+  schemas:
+    PackagesBodySchema:
+      type: object
+      required:
+        - nodeIds
+      properties:
+        nodeIds:
+          type: array
+          description: 'Node ID(s) identifying packages on the platform.  No item in the list should be an ancestor of another item.'
+          items:
+            type: string
+        fileIds:
+          type: array
+          description: 'Only valid when a single nodeId is specified.  Only the files with these ID(s) will be returned if this list is specified.'
+          items:
+            type: integer
+            format: int32
+        archiveName:
+          type: string
+          description: 'Only valid when multiple nodeIds are specified.  The returned file will have this name if specified.'
+
+    DiscoverBodySchema:
+      type: object
+      required:
+        - datasetid
+        - version
+        - paths
+      properties:
+        datasetId:
+          type: integer
+          format: int32
+          description: 'ID of the requested dataset'
+        version:
+          type: integer
+          format: int32
+          description: 'Version of the requested dataset'
+        paths:
+          type: array
+          description: 'Paths identifying the files and/or folders within the dataset version that are requested'
+          items:
+            type: string
+        archiveName:
+          type: string
+          description: 'Only valid when multiple paths are specified.  The returned file will have this name if specified'
+
+
+

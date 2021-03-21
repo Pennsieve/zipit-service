@@ -1,0 +1,10 @@
+node_modules/
+scripts/
+.DS_Store
+.idea
+integration/*.gif
+dist
+
+*.log
+
+*.iml

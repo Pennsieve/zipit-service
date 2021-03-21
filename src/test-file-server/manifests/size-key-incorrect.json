@@ -1,0 +1,20 @@
+{
+  "header": "hello i am a string that is strange",
+  "data" : [
+    {
+      "path" : [],
+      "fileName": "file1.txt",
+      "url": "http://www.google.com"
+    },
+    {
+      "path" : [],
+      "fileName": "file2.txt",
+      "url": "http://wwwl.google.com"
+    },
+    {
+      "path": ["dir1"],
+      "fileName": "file3.txt",
+      "url": "http://www.google.com"
+    }
+  ]
+}
