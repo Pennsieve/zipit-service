@@ -73,7 +73,7 @@ export const writeFileHeaders = ({
     );
   } else {
     res.writeHead(200, {
-      [ContentHeaders.DISPOSITION]: `${ContentDispositionPrefix}"${fileName}${extension}"`,
+      [ContentHeaders.DISPOSITION]: `${ContentDispositionPrefix}"${encodeURI(fileName)}${extension}"`,
       [ContentHeaders.TYPE]: contentType,
     });
   }
