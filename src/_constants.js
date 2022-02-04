@@ -1,0 +1,30 @@
+"use strict";
+var _a, _b, _c, _d, _e, _f, _g;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ErrorFile = exports.ErrorResponses = exports.MAX_ARCHIVE_SIZE = exports.MANIFEST_PATH = exports.PACKAGES_PATH = exports.API_URL = exports.LOG_LEVEL = exports.TEST_FILE_SERVER_PORT = exports.PORT = void 0;
+exports.PORT = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 8080;
+exports.TEST_FILE_SERVER_PORT = (_b = process.env.TEST_FILE_SERVER_PORT) !== null && _b !== void 0 ? _b : 4001;
+exports.LOG_LEVEL = (_c = process.env.LOG_LEVEL) !== null && _c !== void 0 ? _c : 'verbose';
+exports.API_URL = (_d = process.env.API_URL) !== null && _d !== void 0 ? _d : 'https://api.pennsieve.net';
+exports.PACKAGES_PATH = (_e = process.env.PACKAGES_PATH) !== null && _e !== void 0 ? _e : '/packages';
+exports.MANIFEST_PATH = (_f = process.env.MANIFEST_PATH) !== null && _f !== void 0 ? _f : '/download-manifest';
+exports.MAX_ARCHIVE_SIZE = parseInt((_g = process.env.MAX_ARCHIVE_SIZE) !== null && _g !== void 0 ? _g : '5000000000', 10);
+var ErrorResponses;
+(function (ErrorResponses) {
+    ErrorResponses["UNKNOWN"] = "there was an error creating the zip, please check the logs";
+    ErrorResponses["REQUEST_INVALID"] = "the request was invalid";
+    ErrorResponses["DATA_EMPTY"] = "no data to download";
+    ErrorResponses["MANIFEST_INVALID"] = "manifest had unexpected shape";
+    ErrorResponses["HEADER_INVALID"] = "manifest \"header\" property invalid...it should be the first key in the manifest json";
+    ErrorResponses["SIZE_TOO_LARGE"] = "archive is too big to download";
+    ErrorResponses["NO_HEADER"] = "manifest \"header\" property not found...it should be the first key in the manifest json";
+    ErrorResponses["INVALID_JSON"] = "could not parse manifest json";
+})(ErrorResponses = exports.ErrorResponses || (exports.ErrorResponses = {}));
+var ErrorFile;
+(function (ErrorFile) {
+    ErrorFile["NAME"] = "!ERROR.txt";
+    ErrorFile["SAVE"] = "Unable to save error log to archive!";
+    ErrorFile["FILE"] = "FILE Error: ";
+    ErrorFile["FATAL"] = "FATAL Error: ";
+    ErrorFile["OTHER"] = "Error: ";
+})(ErrorFile = exports.ErrorFile || (exports.ErrorFile = {}));
