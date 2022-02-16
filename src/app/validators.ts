@@ -58,7 +58,7 @@ export const validateApiRequest: ValidateRequestAndGetHandlerConfig = req => {
 export const validateDiscoverRequest: ValidateRequestAndGetHandlerConfig = req => {
   const {
     body: {
-      data: { datasetId, version, paths, rootPath, archiveName },
+      data: { datasetId, version, paths, rootPath, archiveName, userToken },
     },
   } = DiscoverRequestSchema.validateSync(req, {
     abortEarly: false,
@@ -66,7 +66,7 @@ export const validateDiscoverRequest: ValidateRequestAndGetHandlerConfig = req =
   });
 
   return {
-    manifestUrl: `${API_URL}/discover/datasets/${datasetId}/versions/${version}/files/download-manifest`,
+    manifestUrl: `${API_URL}/discover/datasets/${datasetId}/versions/${version}/files/download-manifest?api_key=${userToken}`,
     manifestBody: { paths, rootPath },
     isSingleSelection: paths.length === 1,
     archiveName: archiveName ?? '',
