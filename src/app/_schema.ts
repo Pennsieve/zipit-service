@@ -74,6 +74,7 @@ export const DiscoverRequestSchema = object().shape({
         ),
         otherwise: string().notRequired(),
       }),
+      userToken: string().required(),
     }),
   }),
 });
