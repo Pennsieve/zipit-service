@@ -112,12 +112,30 @@ describe('bad request', () => {
   });
 
   describe('discover endpoint', () => {
+    describe('userToken body param', () => {
+      it('is required', async () => {
+        const res = await axios.post(`${APP_URL}/discover`, {
+          data: {
+            paths: ['foo'],
+            version: 1,
+            datasetId: 1,
+          },
+        });
+        expect(res.status).toEqual(200);
+        expect(res.data).toEqual({
+          status: 400,
+          error: 'the request was invalid',
+          info: 'body.data.userToken is a required field',
+        });
+      });
+    });
     describe('datasetId body param', () => {
       it('is required', async () => {
         const res = await axios.post(`${APP_URL}/discover`, {
           data: {
             paths: ['foo'],
             version: 1,
+            userToken: "abc123",
           },
         });
         expect(res.status).toEqual(200);
@@ -133,6 +151,7 @@ describe('bad request', () => {
             paths: ['foo'],
             version: 1,
             datasetId: 'foo',
+            userToken: "abc123",
           },
         });
         expect(res.status).toEqual(200);
@@ -149,6 +168,7 @@ describe('bad request', () => {
           data: {
             paths: ['foo'],
             datasetId: 1,
+            userToken: "abc123",
           },
         });
         expect(res.status).toEqual(200);
@@ -164,6 +184,7 @@ describe('bad request', () => {
             paths: ['foo'],
             version: 'foo',
             datasetId: 1,
+            userToken: "abc123",
           },
         });
         expect(res.status).toEqual(200);
@@ -180,6 +201,7 @@ describe('bad request', () => {
           data: {
             datasetId: 1,
             version: 1,
+            userToken: "abc123",
           },
         });
         expect(res.status).toEqual(200);
@@ -208,6 +230,7 @@ describe('bad request', () => {
             datasetId: 1,
             version: 1,
             paths: [],
+            userToken: "abc123",
           },
         });
         expect(res.status).toEqual(200);
@@ -228,6 +251,7 @@ describe('bad request', () => {
             version: 1,
             paths: ['foo'],
             archiveName: 'test',
+            userToken: "abc123",
           },
         });
         expect(res.status).toEqual(200);
