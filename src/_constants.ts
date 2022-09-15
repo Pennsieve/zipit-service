@@ -8,6 +8,8 @@ export const API_URL = process.env.API_URL ?? 'https://api.pennsieve.net';
 
 export const PACKAGES_PATH = process.env.PACKAGES_PATH ?? '/packages';
 
+export const DATACANVAS_PATH = process.env.DATACANVAS_PATH ?? '/datacanvas';
+
 export const MANIFEST_PATH = process.env.MANIFEST_PATH ?? '/download-manifest';
 
 export const MAX_ARCHIVE_SIZE = parseInt(
