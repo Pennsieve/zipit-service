@@ -1,6 +1,6 @@
 import express from 'express';
 import { errorMiddleware } from './error.middleware';
-import { validateApiRequest, validateDiscoverRequest } from './validators';
+import { validateApiRequest, validateDiscoverRequest, validateDataCanvasRequest } from './validators';
 import { downloadHandler } from './download.handler';
 
 export const app = express();
@@ -14,5 +14,7 @@ app.get('/health', (_, response) =>
 app.post('/', downloadHandler(validateApiRequest));
 
 app.post('/discover', downloadHandler(validateDiscoverRequest));
+
+app.post('/datacanvas', downloadHandler(validateDataCanvasRequest));
 
 app.use(errorMiddleware);

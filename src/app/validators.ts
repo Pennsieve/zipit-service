@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { FileManifest } from '../streams/_model';
 import { DiscoverRequestSchema, PackagesRequestSchema } from './_schema';
-import { API_URL, MANIFEST_PATH, PACKAGES_PATH } from '../_constants';
+import {API_URL, DATACANVAS_PATH, MANIFEST_PATH, PACKAGES_PATH} from '../_constants';
 
 /**
  * a function that validates the incoming request,
@@ -18,10 +18,51 @@ export type ValidateRequestAndGetHandlerConfig = (
   archiveName: string;
 };
 
+const commonApiRequestValidator: (
+  req: Request,
+  apiUrl: string,
+  urlPath: string,
+  manifestPath: string,
+) => {
+  manifestUrl: string;
+  archiveName: any;
+  manifestBody: any;
+  isSingleSelection: boolean;
+  determineSingleFileName: (manifest: FileManifest) => string;
+} = (req, apiUrl: string, urlPath: string, manifestPath: string) => {
+  const { query, body } = PackagesRequestSchema.validateSync(req, {
+    abortEarly: false,
+    stripUnknown: true,
+  });
+
+  return {
+    manifestUrl: `${apiUrl}${urlPath}${manifestPath}?api_key=${query.api_key}`,
+    manifestBody: body.data,
+    isSingleSelection: body.data.nodeIds.length === 1,
+    archiveName: body.data.archiveName ?? '',
+    determineSingleFileName:
+        body.data.fileIds && body.data.fileIds.length
+            ? (manifest: FileManifest) => manifest.fileName
+            : (manifest: FileManifest) => {
+              const { packageName } = manifest;
+              if (packageName) {
+                const { fileExtension } = manifest;
+                if (fileExtension) {
+                  const extensionNoDot = fileExtension.replace(/^\./g,''); //remove dot if it is the first character
+                  const name = packageName.replace(extensionNoDot,'').replace(/\.$/g,''); //remove the file extension and the dot if it is at the end
+                  return `${name}.${extensionNoDot}`;
+                }
+              }
+              return manifest.fileName;
+            },
+  };
+};
+
 /**
  * validate a request for the API download manifest
  * @param req
  */
+// TODO: refactor to use commonApiRequestValidator()
 export const validateApiRequest: ValidateRequestAndGetHandlerConfig = req => {
   const { query, body } = PackagesRequestSchema.validateSync(req, {
     abortEarly: false,
@@ -72,4 +113,11 @@ export const validateDiscoverRequest: ValidateRequestAndGetHandlerConfig = req =
     archiveName: archiveName ?? '',
     determineSingleFileName: (manifest: FileManifest) => manifest.fileName,
   };
+};
+
+/**
+ * validate a request to download a DataCanvas
+ */
+export const validateDataCanvasRequest: ValidateRequestAndGetHandlerConfig = req => {
+  return commonApiRequestValidator(req, API_URL, DATACANVAS_PATH, MANIFEST_PATH);
 };
