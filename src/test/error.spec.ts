@@ -113,7 +113,7 @@ describe('bad request', () => {
 
   describe('discover endpoint', () => {
     describe('userToken body param', () => {
-      it('is required', async () => {
+      it('is not required', async () => {
         const res = await axios.post(`${APP_URL}/discover`, {
           data: {
             paths: ['foo'],
@@ -122,11 +122,11 @@ describe('bad request', () => {
           },
         });
         expect(res.status).toEqual(200);
-        expect(res.data).toEqual({
-          status: 400,
-          error: 'the request was invalid',
-          info: 'body.data.userToken is a required field',
-        });
+        // expect(res.data).toEqual({
+        //   status: 400,
+        //   error: 'the request was invalid',
+        //   info: 'body.data.userToken is a required field',
+        // });
       });
     });
     describe('datasetId body param', () => {

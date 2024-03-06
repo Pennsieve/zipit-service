@@ -16,19 +16,31 @@ node('executor') {
     passwordVariable: "PENNSIEVE_NEXUS_PW"
   )
 
-  stage("Test Setup") {
-    sh "npm run test:ci:build"
-  }
-
-  stage("Test Run") {
-    sh "npm run test:ci:run"
-  }
-
-  stage("Test Cleanup") {
-    sh "npm run test:ci:clean"
-  }
-
   try {
+    stage("Test Setup") {
+      sh """#!/bin/bash -ex
+          . $HOME/.nvm/nvm.sh ; nvm use 14
+          node -v
+          npm -v
+          npm run test:ci:build"""
+    }
+
+    stage("Test Run") {
+      sh """#!/bin/bash -ex
+              . $HOME/.nvm/nvm.sh ; nvm use 14
+              node -v
+              npm -v
+              npm run test:ci:run"""
+    }
+
+    stage("Test Cleanup") {
+      sh """#!/bin/bash -ex
+                  . $HOME/.nvm/nvm.sh ; nvm use 14
+                  node -v
+                  npm -v
+                  npm run test:ci:clean"""
+    }
+
     if (isMain) {
       stage("Build") {
         sh "docker build . -t pennsieve/${serviceName}:latest -t pennsieve/${serviceName}:${imageTag}"
