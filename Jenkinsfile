@@ -17,7 +17,11 @@ node('executor') {
   )
 
   stage("Test Setup") {
-    sh "npm run test:ci:build"
+    sh """#!/bin/bash -ex
+        . $HOME/.nvm/nvm.sh ; nvm use 14
+        node -v
+        npm -v
+        npm run test:ci:build"""
   }
 
   stage("Test Run") {
