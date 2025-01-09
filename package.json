@@ -64,7 +64,7 @@
     "typescript": "^3.7.3",
     "unzipper": "^0.10.5",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.12"
   },
   "engines": {
     "node": "14",
