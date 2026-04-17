@@ -35,8 +35,10 @@ const commonApiRequestValidator: (
     stripUnknown: true,
   });
 
+  const apiKey = query.api_key || body.api_key;
+
   return {
-    manifestUrl: `${apiUrl}${urlPath}${manifestPath}?api_key=${query.api_key}`,
+    manifestUrl: `${apiUrl}${urlPath}${manifestPath}?api_key=${apiKey}`,
     manifestBody: body.data,
     isSingleSelection: body.data.nodeIds.length === 1,
     archiveName: body.data.archiveName ?? '',
@@ -69,8 +71,10 @@ export const validateApiRequest: ValidateRequestAndGetHandlerConfig = req => {
     stripUnknown: true,
   });
 
+  const apiKey = query.api_key || body.api_key;
+
   return {
-    manifestUrl: `${API_URL}${PACKAGES_PATH}${MANIFEST_PATH}?api_key=${query.api_key}`,
+    manifestUrl: `${API_URL}${PACKAGES_PATH}${MANIFEST_PATH}?api_key=${apiKey}`,
     manifestBody: body.data,
     isSingleSelection: body.data.nodeIds.length === 1,
     archiveName: body.data.archiveName ?? '',
