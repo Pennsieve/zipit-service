@@ -3,12 +3,14 @@ import { array, mixed, number, object, string } from 'yup';
 const QueryParamsSchema = object()
   .shape({
     // eslint-disable-next-line @typescript-eslint/camelcase
-    api_key: string().required(),
+    api_key: string().notRequired(),
   })
   .required();
 
 const PackagesBodySchema = object()
   .shape({
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    api_key: string().notRequired(),
     data: object()
       .shape({
         nodeIds: array()
@@ -40,7 +42,11 @@ const PackagesBodySchema = object()
 export const PackagesRequestSchema = object().shape({
   body: PackagesBodySchema,
   query: QueryParamsSchema,
-});
+}).test(
+  'api_key-required',
+  'api_key must be provided in query string or request body',
+  value => !!(value?.query?.api_key || value?.body?.api_key),
+);
 
 export const SizeHeaderSchema = object().shape({
   header: object()

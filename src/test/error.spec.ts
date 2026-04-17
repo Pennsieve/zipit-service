@@ -5,8 +5,8 @@ import { ErrorResponses } from '../_constants';
 
 describe('bad request', () => {
   describe('platform endpoint', () => {
-    describe('api_key query param', () => {
-      it('is required', async () => {
+    describe('api_key param', () => {
+      it('is required in query or body', async () => {
         const res = await axios.post(APP_URL, {
           data: {
             nodeIds: ['manifest.json'],
@@ -17,7 +17,7 @@ describe('bad request', () => {
         expect(res.data).toEqual({
           status: 400,
           error: 'the request was invalid',
-          info: 'query.api_key is a required field',
+          info: 'api_key must be provided in query string or request body',
         });
       });
     });
