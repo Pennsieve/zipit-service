@@ -111,7 +111,12 @@ export const validateDiscoverRequest: ValidateRequestAndGetHandlerConfig = req =
   });
 
   return {
-    manifestUrl: `${API_URL}/discover/datasets/${datasetId}/versions/${version}/files/download-manifest?api_key=${userToken}`,
+    // Public datasets need no token. Without one, send no api_key at all:
+    // `api_key=undefined` routes the request through the gateway's
+    // authenticated path, which answers 401.
+    manifestUrl: `${API_URL}/discover/datasets/${datasetId}/versions/${version}/files/download-manifest${
+      userToken ? `?api_key=${encodeURIComponent(userToken)}` : ''
+    }`,
     manifestBody: { paths, rootPath },
     isSingleSelection: paths.length === 1,
     archiveName: archiveName ?? '',
