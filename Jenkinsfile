@@ -10,12 +10,6 @@ node('executor') {
   def commitHash  = sh(returnStdout: true, script: 'git rev-parse HEAD | cut -c-7').trim()
   def imageTag    = "${env.BUILD_NUMBER}-${commitHash}"
 
-  def pennsieveNexusCreds = usernamePassword(
-    credentialsId: "pennsieve-nexus-ci-login",
-    usernameVariable: "PENNSIEVE_NEXUS_USER",
-    passwordVariable: "PENNSIEVE_NEXUS_PW"
-  )
-
   try {
     stage("Test Setup") {
       sh """#!/bin/bash -ex
