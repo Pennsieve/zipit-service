@@ -352,6 +352,9 @@ describe('handling of unfound files', () => {
   });
 });
 
+// streaming the 700-file manifests can take longer than jest's 5s default on CI
+const BIG_MANIFEST_TIMEOUT = 30000;
+
 describe(`errors after 200 status is sent
     TODO: these tests are non-deterministic.
 
@@ -380,7 +383,7 @@ describe(`errors after 200 status is sent
           expect(errorFile.split('\n')).toHaveLength(1);
         },
       );
-    });
+    }, BIG_MANIFEST_TIMEOUT);
   });
 
   describe('if there is a json validation error after the stream has started', () => {
@@ -404,6 +407,6 @@ describe(`errors after 200 status is sent
           expect(errorFile.split('\n')).toHaveLength(1);
         },
       );
-    });
+    }, BIG_MANIFEST_TIMEOUT);
   });
 });
